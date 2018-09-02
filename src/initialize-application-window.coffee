@@ -11,9 +11,6 @@ ModuleCache = require './module-cache'
 if global.isGeneratingSnapshot
   require('about')
   require('archive-view')
-  require('autocomplete-atom-api')
-  require('autocomplete-css')
-  require('autocomplete-html')
   require('autocomplete-plus')
   require('autocomplete-snippets')
   require('autoflow')
@@ -22,8 +19,6 @@ if global.isGeneratingSnapshot
   require('bookmarks')
   require('bracket-matcher')
   require('command-palette')
-  require('deprecation-cop')
-  require('dev-live-reload')
   require('encoding-selector')
   require('exception-reporting')
   require('dalek')
@@ -45,7 +40,6 @@ if global.isGeneratingSnapshot
   require('metrics')
   require('notifications')
   require('open-on-github')
-  require('package-generator')
   require('settings-view')
   require('snippets')
   require('spell-check')
@@ -55,10 +49,10 @@ if global.isGeneratingSnapshot
   require('tabs')
   require('timecop')
   require('tree-view')
-  require('update-package-dependencies')
   require('welcome')
   require('whitespace')
   require('wrap-guide')
+  require('pros-bootstrapper')
 
 clipboard = new Clipboard
 TextEditor.setClipboard(clipboard)

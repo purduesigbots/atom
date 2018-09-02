@@ -72,10 +72,10 @@ if (!argv.existingBinaries) {
   generateModuleCache()
   prebuildLessCache()
   generateMetadata()
-  generateAPIDocs()
-  if (!argv.generateApiDocs) {
-    binariesPromise = dumpSymbols()
-  }
+  // generateAPIDocs()
+  // if (!argv.generateApiDocs) {
+  //   binariesPromise = dumpSymbols()
+  // }
 }
 
 if (!argv.generateApiDocs) {

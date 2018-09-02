@@ -16,7 +16,7 @@ const intermediateAppPath = path.join(buildOutputPath, 'app')
 const symbolsPath = path.join(buildOutputPath, 'symbols')
 const electronDownloadPath = path.join(repositoryRootPath, 'electron')
 const homeDirPath = process.env.HOME || process.env.USERPROFILE
-const atomHomeDirPath = process.env.ATOM_HOME || path.join(homeDirPath, '.atom')
+const atomHomeDirPath = process.env.ATOM_HOME || path.join(homeDirPath, '.pros-editor')
 
 const appMetadata = require(path.join(repositoryRootPath, 'package.json'))
 const apmMetadata = require(path.join(apmRootPath, 'package.json'))
@@ -58,8 +58,8 @@ function getChannel (version) {
 
 function getAppName (channel) {
   return channel === 'stable'
-    ? 'Atom'
-    : `Atom ${process.env.ATOM_CHANNEL_DISPLAY_NAME || channel.charAt(0).toUpperCase() + channel.slice(1)}`
+    ? 'PROS Editor'
+    : `PROS Editor ${process.env.ATOM_CHANNEL_DISPLAY_NAME || channel.charAt(0).toUpperCase() + channel.slice(1)}`
 }
 
 function computeAppVersion (version) {
