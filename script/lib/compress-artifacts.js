@@ -13,10 +13,10 @@ module.exports = function (packagedAppPath) {
   const appArchivePath = path.join(CONFIG.buildOutputPath, getArchiveName())
   compress(packagedAppPath, appArchivePath)
 
-  if (process.platform === 'darwin') {
-    const symbolsArchivePath = path.join(CONFIG.buildOutputPath, `${APPNAME}-mac-symbols.zip`)
-    compress(CONFIG.symbolsPath, symbolsArchivePath)
-  }
+  // if (process.platform === 'darwin') {
+  //   const symbolsArchivePath = path.join(CONFIG.buildOutputPath, `${APPNAME}-mac-symbols.zip`)
+  //   compress(CONFIG.symbolsPath, symbolsArchivePath)
+  // }
 }
 
 function getArchiveName () {

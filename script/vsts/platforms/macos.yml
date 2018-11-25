@@ -58,11 +58,3 @@ jobs:
       ArtifactType: Container
     displayName: Upload pros-editor-mac.zip
     condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
-
-  - task: PublishBuildArtifacts@1
-    inputs:
-      PathtoPublish: $(Build.ArtifactStagingDirectory)/pros-editor-mac-symbols.zip
-      ArtifactName: pros-editor-mac-symbols.zip
-      ArtifactType: Container
-    displayName: Upload pros-editor-mac-symbols.zip
-    condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
