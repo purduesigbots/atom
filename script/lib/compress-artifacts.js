@@ -7,21 +7,23 @@ const { path7za } = require('7zip-bin')
 
 const CONFIG = require('../config')
 
+const APPNAME = CONFIG.appMetadata.name
+
 module.exports = function (packagedAppPath) {
   const appArchivePath = path.join(CONFIG.buildOutputPath, getArchiveName())
   compress(packagedAppPath, appArchivePath)
 
   if (process.platform === 'darwin') {
-    const symbolsArchivePath = path.join(CONFIG.buildOutputPath, 'atom-mac-symbols.zip')
+    const symbolsArchivePath = path.join(CONFIG.buildOutputPath, `${APPNAME}-mac-symbols.zip`)
     compress(CONFIG.symbolsPath, symbolsArchivePath)
   }
 }
 
 function getArchiveName () {
   switch (process.platform) {
-    case 'darwin': return 'atom-mac.zip'
-    case 'win32': return `atom-${process.arch === 'x64' ? 'x64-' : ''}windows.zip`
-    default: return `atom-${getLinuxArchiveArch()}.tar.gz`
+    case 'darwin': return `${APPNAME}-mac.zip`
+    case 'win32': return `${APPNAME}-${process.arch === 'x64' ? 'x64-' : ''}windows.zip`
+    default: return `${APPNAME}-${getLinuxArchiveArch()}.tar.gz`
   }
 }
 

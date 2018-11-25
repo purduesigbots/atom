@@ -56,7 +56,7 @@ class CommandInstaller {
   installAtomCommand (askForPrivilege, callback) {
     this.installCommand(
       path.join(this.getResourcesDirectory(), 'app', 'atom.sh'),
-      this.getCommandNameForChannel('atom'),
+      this.getCommandNameForChannel('pros-editor'),
       askForPrivilege,
       callback
     )
