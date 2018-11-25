@@ -19,10 +19,10 @@ jobs:
 
   - task: PublishBuildArtifacts@1
     inputs:
-      PathtoPublish: $(Build.SourcesDirectory)/out/pros-editor.x86_64.rpm
-      ArtifactName: pros-editor.x86_64.rpm
+      PathtoPublish: $(Build.SourcesDirectory)/out/pros.editor.x86_64.rpm
+      ArtifactName: pros.editor.x86_64.rpm
       ArtifactType: Container
-    displayName: Upload pros-editor.x84_64.rpm
+    displayName: Upload pros.editor.x84_64.rpm
     condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
 
   - task: PublishBuildArtifacts@1
