@@ -60,19 +60,6 @@ jobs:
       IS_SIGNED_ZIP_BRANCH: $(IsSignedZipBranch)
     displayName: Build Atom
 
-  - script: node script\vsts\windows-run.js script\lint.cmd
-    env:
-      BUILD_ARCH: $(buildArch)
-    displayName: Run linter
-
-  - script: node script\vsts\windows-run.js script\test.cmd
-    env:
-      CI: true
-      CI_PROVIDER: VSTS
-      BUILD_ARCH: $(buildArch)
-    displayName: Run tests
-    condition: and(succeeded(), ne(variables['Atom.SkipTests'], 'true'))
-
   - task: PublishBuildArtifacts@1
     inputs:
       PathtoPublish: $(Build.SourcesDirectory)/out/pros-editor-x64-windows.zip
