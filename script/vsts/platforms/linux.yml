@@ -17,16 +17,6 @@ jobs:
       ATOM_RELEASE_VERSION: $(ReleaseVersion)
     displayName: Build Atom
 
-  - script: script/lint
-    displayName: Run linter
-
-  - script: script/test
-    env:
-      CI: true
-      CI_PROVIDER: VSTS
-    displayName: Run tests
-    condition: and(succeeded(), ne(variables['Atom.SkipTests'], 'true'))
-
   - task: PublishBuildArtifacts@1
     inputs:
       PathtoPublish: $(Build.SourcesDirectory)/out/pros-editor.x86_64.rpm
