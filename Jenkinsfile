@@ -17,14 +17,18 @@ stage('Build') {
     "windows64": {
       node("win64") {
         checkout scm
-        bat '.\\script\\build.cmd --compress-artifacts'
+        retry(3) {
+          bat '.\\script\\build.cmd --compress-artifacts'
+        }
         archiveArtifacts allowEmptyArchive: true, artifacts: 'out/*.zip', onlyIfSuccessful: true
       }
     },
     "windows32": {
       node("win86") {
         checkout scm
-        bat '.\\script\\build.cmd --compress-artifacts'
+        retry(3) {
+          bat '.\\script\\build.cmd --compress-artifacts'
+        }
         archiveArtifacts allowEmptyArchive: true, artifacts: 'out/*.zip', onlyIfSuccessful: true
       }
     }
