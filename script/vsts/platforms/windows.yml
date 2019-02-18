@@ -60,42 +60,13 @@ jobs:
       IS_SIGNED_ZIP_BRANCH: $(IsSignedZipBranch)
     displayName: Build Atom
 
-  - script: node script\vsts\windows-run.js script\lint.cmd
-    env:
-      BUILD_ARCH: $(buildArch)
-    displayName: Run linter
-
-  - script: node script\vsts\windows-run.js script\test.cmd
-    env:
-      CI: true
-      CI_PROVIDER: VSTS
-      BUILD_ARCH: $(buildArch)
-    displayName: Run tests
-    condition: and(succeeded(), ne(variables['Atom.SkipTests'], 'true'))
-
   - task: PublishBuildArtifacts@1
     inputs:
-      PathtoPublish: $(Build.SourcesDirectory)/out/atom-x64-windows.zip
-      ArtifactName: atom-x64-windows.zip
+      PathtoPublish: $(Build.SourcesDirectory)/out/pros-editor-x64-windows.zip
+      ArtifactName: pros-editor-x64-windows.zip
       ArtifactType: Container
-    displayName: Upload atom-x64-windows.zip
+    displayName: Upload pros-editor-x64-windows.zip
     condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'), eq(variables['buildArch'], 'x64'))
-
-  - task: PublishBuildArtifacts@1
-    inputs:
-      PathtoPublish: $(Build.SourcesDirectory)/out/AtomSetup-x64.exe
-      ArtifactName: AtomSetup-x64.exe
-      ArtifactType: Container
-    displayName: Upload AtomSetup-x64.exe
-    condition: and(succeeded(), eq(variables['IsReleaseBranch'], 'true'), eq(variables['buildArch'], 'x64'))
-
-  - task: PublishBuildArtifacts@1
-    inputs:
-      PathtoPublish: $(Build.SourcesDirectory)/out/atom-x64-$(ReleaseVersion)-full.nupkg
-      ArtifactName: atom-x64-$(ReleaseVersion)-full.nupkg
-      ArtifactType: Container
-    displayName: Upload atom-x64-$(ReleaseVersion)-full.nupkg
-    condition: and(succeeded(), eq(variables['IsReleaseBranch'], 'true'), eq(variables['buildArch'], 'x64'))
 
   - task: PublishBuildArtifacts@1
     inputs:
@@ -107,27 +78,11 @@ jobs:
 
   - task: PublishBuildArtifacts@1
     inputs:
-      PathtoPublish: $(Build.SourcesDirectory)/out/atom-windows.zip
-      ArtifactName: atom-windows.zip
+      PathtoPublish: $(Build.SourcesDirectory)/out/pros-editor-windows.zip
+      ArtifactName: pros-editor-windows.zip
       ArtifactType: Container
-    displayName: Upload atom-windows.zip
+    displayName: Upload pros-editor-windows.zip
     condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'), eq(variables['buildArch'], 'x86'))
-
-  - task: PublishBuildArtifacts@1
-    inputs:
-      PathtoPublish: $(Build.SourcesDirectory)/out/AtomSetup.exe
-      ArtifactName: AtomSetup.exe
-      ArtifactType: Container
-    displayName: Upload AtomSetup.exe
-    condition: and(succeeded(), eq(variables['IsReleaseBranch'], 'true'), eq(variables['buildArch'], 'x86'))
-
-  - task: PublishBuildArtifacts@1
-    inputs:
-      PathtoPublish: $(Build.SourcesDirectory)/out/atom-$(ReleaseVersion)-full.nupkg
-      ArtifactName: atom-$(ReleaseVersion)-full.nupkg
-      ArtifactType: Container
-    displayName: Upload atom-$(ReleaseVersion)-full.nupkg
-    condition: and(succeeded(), eq(variables['IsReleaseBranch'], 'true'), eq(variables['buildArch'], 'x86'))
 
   - task: PublishBuildArtifacts@1
     inputs:

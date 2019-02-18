@@ -25,7 +25,7 @@ const getAppDirectory = () => {
 module.exports = {
   setAtomHome: (homePath) => {
     // When a read-writeable .atom folder exists above app use that
-    const portableHomePath = path.join(getAppDirectory(), '..', '.atom')
+    const portableHomePath = path.join(getAppDirectory(), '..', '.pros-editor')
     if (fs.existsSync(portableHomePath)) {
       if (hasWriteAccess(portableHomePath)) {
         process.env.ATOM_HOME = portableHomePath
@@ -41,7 +41,7 @@ module.exports = {
     }
 
     // Fall back to default .atom folder in users home folder
-    process.env.ATOM_HOME = path.join(homePath, '.atom')
+    process.env.ATOM_HOME = path.join(homePath, '.pros-editor')
   },
 
   setUserData: (app) => {
