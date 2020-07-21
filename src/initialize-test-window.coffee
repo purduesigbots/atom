@@ -6,10 +6,7 @@ cloneObject = (object) ->
   clone
 
 module.exports = ({blobStore}) ->
-  startCrashReporter = require('./crash-reporter-start')
   {remote} = require 'electron'
-
-  startCrashReporter() # Before anything else
 
   exitWithStatusCode = (status) ->
     remote.app.emit('will-quit')
@@ -32,7 +29,17 @@ module.exports = ({blobStore}) ->
 
     {testRunnerPath, legacyTestRunnerPath, headless, logFile, testPaths, env} = getWindowLoadSettings()
 
-    unless headless
+    if headless
+      # Install console functions that output to stdout and stderr.
+      util = require 'util'
+
+      Object.defineProperties process,
+        stdout: {value: remote.process.stdout}
+        stderr: {value: remote.process.stderr}
+
+      console.log = (args...) -> process.stdout.write "#{util.format(args...)}\n"
+      console.error = (args...) -> process.stderr.write "#{util.format(args...)}\n"
+    else
       # Show window synchronously so a focusout doesn't fire on input elements
       # that are focused in the very first spec run.
       remote.getCurrentWindow().show()
@@ -54,8 +61,8 @@ module.exports = ({blobStore}) ->
 
       # Copy: cmd-c / ctrl-c
       if (event.metaKey or event.ctrlKey) and event.keyCode is 67
-        ipcHelpers.call('window-method', 'copy')
-
+        atom.clipboard.write(window.getSelection().toString())
+        
     window.addEventListener('keydown', handleKeydown, true)
 
     # Add 'exports' to module search path.

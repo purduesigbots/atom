@@ -12,6 +12,7 @@ FindParentDir = require 'find-parent-dir'
 TextEditor = require '../src/text-editor'
 TextEditorElement = require '../src/text-editor-element'
 TextMateLanguageMode = require '../src/text-mate-language-mode'
+TreeSitterLanguageMode = require '../src/tree-sitter-language-mode'
 {clipboard} = require 'electron'
 
 jasmineStyle = document.createElement('style')
@@ -43,7 +44,13 @@ Set.prototype.isEqual = (other) ->
   else
     false
 
-jasmine.getEnv().addEqualityTester(_.isEqual) # Use underscore's definition of equality for toEqual assertions
+jasmine.getEnv().addEqualityTester (a, b) ->
+  # Match jasmine.any's equality matching logic
+  return a.jasmineMatches(b) if a?.jasmineMatches?
+  return b.jasmineMatches(a) if b?.jasmineMatches?
+  
+  # Use underscore's definition of equality for toEqual assertions
+  _.isEqual(a, b)
 
 if process.env.CI
   jasmine.getEnv().defaultTimeoutInterval = 60000
@@ -101,6 +108,7 @@ beforeEach ->
 
   # make tokenization synchronous
   TextMateLanguageMode.prototype.chunkSize = Infinity
+  TreeSitterLanguageMode.prototype.syncTimeoutMicros = Infinity
   spyOn(TextMateLanguageMode.prototype, "tokenizeInBackground").andCallFake -> @tokenizeNextChunk()
 
   # Without this spy, TextEditor.onDidTokenize callbacks would not be called
