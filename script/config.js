@@ -17,7 +17,7 @@ const symbolsPath = path.join(buildOutputPath, 'symbols');
 const electronDownloadPath = path.join(repositoryRootPath, 'electron');
 const homeDirPath = process.env.HOME || process.env.USERPROFILE;
 const atomHomeDirPath =
-  process.env.ATOM_HOME || path.join(homeDirPath, '.atom');
+  process.env.ATOM_HOME || path.join(homeDirPath, '.pros-editor');
 
 const appMetadata = require(path.join(repositoryRootPath, 'package.json'));
 const apmMetadata = require(path.join(apmRootPath, 'package.json'));
@@ -59,7 +59,7 @@ module.exports = {
 };
 
 function getChannelName(channel) {
-  return channel === 'stable' ? 'atom' : `atom-${channel}`;
+  return channel === 'stable' ? 'pros-editor' : `pros-editor-${channel}`;
 }
 
 function getChannel(version) {
@@ -75,8 +75,8 @@ function getChannel(version) {
 
 function getAppName(channel) {
   return channel === 'stable'
-    ? 'Atom'
-    : `Atom ${process.env.ATOM_CHANNEL_DISPLAY_NAME ||
+    ? 'pros-editor'
+    : `pros-editor ${process.env.ATOM_CHANNEL_DISPLAY_NAME ||
         channel.charAt(0).toUpperCase() + channel.slice(1)}`;
 }
 
@@ -84,9 +84,9 @@ function getExecutableName(channel, appName) {
   if (process.platform === 'darwin') {
     return appName;
   } else if (process.platform === 'win32') {
-    return channel === 'stable' ? 'atom.exe' : `atom-${channel}.exe`;
+    return channel === 'stable' ? 'pros-editor.exe' : `pros-editor-${channel}.exe`;
   } else {
-    return 'atom';
+    return 'pros-editor';
   }
 }
 

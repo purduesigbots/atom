@@ -22,12 +22,14 @@ module.exports = function(packagedAppPath) {
 
 function getArchiveName() {
   switch (process.platform) {
-    case 'darwin':
-      return 'atom-mac.zip';
-    case 'win32':
-      return `atom-${process.arch === 'x64' ? 'x64-' : ''}windows.zip`;
-    default:
-      return `atom-${getLinuxArchiveArch()}.tar.gz`;
+      case 'darwin': return `${APPNAME}-mac.zip`
+      case 'win32':
+        switch(process.arch) {
+          case 'x64': return `${APPNAME}-64-windows.zip`
+          case 'ia32': return `${APPNAME}-windows.zip`
+          default: return `${APPNAME}-${process.arch}-windows.zip`
+        }
+      default: return `${APPNAME}-${getLinuxArchiveArch()}.tar.gz`
   }
 }
 

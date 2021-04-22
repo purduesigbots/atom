@@ -137,7 +137,7 @@ module.exports = function(packagedAppPath) {
     );
     const outputRpmPackageFilePath = path.join(
       CONFIG.buildOutputPath,
-      `atom.${generatedArch}.rpm`
+      `pros.editor.${generatedArch}.rpm`
     );
     console.log(
       `Copying "${generatedPackageFilePath}" into "${outputRpmPackageFilePath}"`

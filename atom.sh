@@ -87,7 +87,7 @@ if [ $REDIRECT_STDERR ]; then
   exec 2> /dev/null
 fi
 
-ATOM_HOME="${ATOM_HOME:-$HOME/.atom}"
+ATOM_HOME="${ATOM_HOME:-$HOME/.pros-atom}"
 mkdir -p "$ATOM_HOME"
 
 if [ $OS == 'Mac' ]; then
@@ -110,13 +110,13 @@ if [ $OS == 'Mac' ]; then
   else
     # Else choose it from the inferred channel name
     if [ "$CHANNEL" == 'beta' ]; then
-      ATOM_EXECUTABLE_NAME="Atom Beta"
+      ATOM_EXECUTABLE_NAME="PROS Editor Beta"
     elif [ "$CHANNEL" == 'nightly' ]; then
-      ATOM_EXECUTABLE_NAME="Atom Nightly"
+      ATOM_EXECUTABLE_NAME="PROS Editor Nightly"
     elif [ "$CHANNEL" == 'dev' ]; then
-      ATOM_EXECUTABLE_NAME="Atom Dev"
+      ATOM_EXECUTABLE_NAME="PROS Editor Dev"
     else
-      ATOM_EXECUTABLE_NAME="Atom"
+      ATOM_EXECUTABLE_NAME="PROS Editor"
     fi
   fi
 
@@ -128,7 +128,7 @@ if [ $OS == 'Mac' ]; then
       ATOM_PATH="$HOME/Applications"
     else
       # We haven't found an Atom.app, use spotlight to search for Atom
-      ATOM_PATH="$(mdfind "kMDItemCFBundleIdentifier == 'com.github.atom'" | grep -v ShipIt | head -1 | xargs -0 dirname)"
+      ATOM_PATH="$(mdfind "kMDItemCFBundleIdentifier == 'edu.purdue.cs.pros.ide'" | grep -v ShipIt | head -1 | xargs -0 dirname)"
 
       # Exit if Atom can't be found
       if [ ! -x "$ATOM_PATH/$ATOM_APP_NAME" ]; then
@@ -155,22 +155,22 @@ elif [ $OS == 'Linux' ]; then
 
   case $CHANNEL in
     beta)
-      ATOM_PATH="$USR_DIRECTORY/share/atom-beta/atom"
+      ATOM_PATH="$USR_DIRECTORY/share/pros-editor-beta/pros-editor"
       ;;
     nightly)
-      ATOM_PATH="$USR_DIRECTORY/share/atom-nightly/atom"
+      ATOM_PATH="$USR_DIRECTORY/share/pros-editor-nightly/pros-editor"
       ;;
     dev)
-      ATOM_PATH="$USR_DIRECTORY/share/atom-dev/atom"
+      ATOM_PATH="$USR_DIRECTORY/share/pros-editor-dev/pros-editor"
       ;;
     *)
-      ATOM_PATH="$USR_DIRECTORY/share/atom/atom"
+      ATOM_PATH="$USR_DIRECTORY/share/pros-editor/pros-editor"
       ;;
   esac
 
   : ${TMPDIR:=/tmp}
 
-  [ -x "$ATOM_PATH" ] || ATOM_PATH="$TMPDIR/atom-build/Atom/atom"
+  [ -x "$ATOM_PATH" ] || ATOM_PATH="$TMPDIR/atom-build/PROS\ Editor/pros-editor"
 
   if [ $EXPECT_OUTPUT ]; then
     "$ATOM_PATH" --executed-from="$(pwd)" --pid=$$ "$@"

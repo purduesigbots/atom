@@ -54,7 +54,7 @@ const getSocketSecretPath = atomVersion => {
   const { username } = os.userInfo();
   const atomHome = path.resolve(process.env.ATOM_HOME);
 
-  return path.join(atomHome, `.atom-socket-secret-${username}-${atomVersion}`);
+  return path.join(atomHome, `.pros-editor-socket-secret-${username}-${atomVersion}`);
 };
 
 const getSocketPath = socketSecret => {
@@ -70,9 +70,9 @@ const getSocketPath = socketSecret => {
     .substr(0, 12);
 
   if (process.platform === 'win32') {
-    return `\\\\.\\pipe\\atom-${socketName}-sock`;
+    return `\\\\.\\pipe\\pros-editor-${socketName}-sock`;
   } else {
-    return path.join(os.tmpdir(), `atom-${socketName}.sock`);
+    return path.join(os.tmpdir(), `pros-editor-${socketName}.sock`);
   }
 };
 

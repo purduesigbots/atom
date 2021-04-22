@@ -4,6 +4,7 @@ const path = require('path');
 const electronLink = require('electron-link');
 const terser = require('terser');
 const CONFIG = require('../config');
+const snapshotExcludes = require('./snapshot-exclude-modules')()
 
 module.exports = function(packagedAppPath) {
   const snapshotScriptPath = path.join(CONFIG.buildOutputPath, 'startup.js');
@@ -17,6 +18,19 @@ module.exports = function(packagedAppPath) {
   ]);
   const baseDirPath = path.join(CONFIG.intermediateAppPath, 'static');
   let processedFiles = 0;
+
+  const excludeFiles = new Set(snapshotExcludes.files.map((p) => {
+    if(p instanceof String || typeof p === 'string') return p;
+    else return path.join(...p);
+  } ))
+  const excludeModules = new Set(snapshotExcludes.modules.map((p) => {
+    if(p instanceof String || typeof p === 'string') return p;
+    else return path.join(...p);
+  } ))
+  const excludeDirs = snapshotExcludes.directories.map((p) => {
+    if(p instanceof String || typeof p === 'string') return p;
+    else return path.join(...p);
+  } )
 
   return electronLink({
     baseDirPath,
@@ -32,9 +46,9 @@ module.exports = function(packagedAppPath) {
       if (processedFiles > 0) {
         process.stdout.write('\r');
       }
-      process.stdout.write(
-        `Generating snapshot script at "${snapshotScriptPath}" (${++processedFiles})`
-      );
+      // process.stdout.write(
+      //   `Generating snapshot script at "${snapshotScriptPath}" (${++processedFiles})`
+      // );
 
       const requiringModuleRelativePath = path.relative(
         baseDirPath,
@@ -47,6 +61,9 @@ module.exports = function(packagedAppPath) {
       return (
         requiredModulePath.endsWith('.node') ||
         coreModules.has(requiredModulePath) ||
+        excludeFiles.has(requiredModuleRelativePath) ||
+        excludeModules.has(requiredModulePath) ||
+        excludeDirs.some((p) => requiredModuleRelativePath.startsWith(p)) ||
         requiringModuleRelativePath.endsWith(
           path.join('node_modules/xregexp/xregexp-all.js')
         ) ||
