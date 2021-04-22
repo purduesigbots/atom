@@ -25,9 +25,9 @@ jobs:
     steps:
       - template: templates/preparation.yml
 
-      - template: templates/cache.yml
-        parameters:
-          OS: windows
+        #      - template: templates/cache.yml
+        #        parameters:
+        #          OS: windows
 
       - template: templates/bootstrap.yml
 

@@ -10,9 +10,9 @@ jobs:
     steps:
       - template: templates/preparation.yml
 
-      - template: templates/cache.yml
-        parameters:
-          OS: linux
+        #      - template: templates/cache.yml
+        #        parameters:
+        #          OS: linux
 
       - template: templates/bootstrap.yml
 

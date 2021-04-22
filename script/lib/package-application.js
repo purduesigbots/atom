@@ -22,8 +22,8 @@ module.exports = function() {
     } with app name "${appName}"`
   );
   return runPackager({
-    appBundleId: 'com.github.atom',
-    appCopyright: `Copyright © 2014-${new Date().getFullYear()} GitHub, Inc. All rights reserved.`,
+    appBundleId: 'edu.purdue.cs.pros.ide',
+    appCopyright: `Copyright © 2014-${new Date().getFullYear()} GitHub, Inc. All rights reserved. Repackaged by Purdue ACM SIGBots.`,
     appVersion: CONFIG.appMetadata.version,
     arch: process.platform === 'darwin' ? 'x64' : HOST_ARCH, // OS X is 64-bit only
     asar: { unpack: buildAsarUnpackGlobExpression() },
@@ -38,7 +38,7 @@ module.exports = function() {
       'mac',
       'atom-Info.plist'
     ),
-    helperBundleId: 'com.github.atom.helper',
+    helperBundleId: 'edu.purdue.cs.pros.ide.helper',
     icon: path.join(
       CONFIG.repositoryRootPath,
       'resources',
@@ -53,8 +53,8 @@ module.exports = function() {
     // Atom doesn't have devDependencies, but if prune is true, it will delete the non-standard packageDependencies.
     prune: false,
     win32metadata: {
-      CompanyName: 'GitHub, Inc.',
-      FileDescription: 'Atom',
+      CompanyName: 'GitHub, Inc. Repackaged by Purdue ACM SIGBots',
+      FileDescription: 'PROS Editor',
       ProductName: CONFIG.appName
     }
   }).then(packagedAppPath => {
@@ -207,9 +207,11 @@ function getAppName() {
   if (process.platform === 'darwin') {
     return CONFIG.appName;
   } else if (process.platform === 'win32') {
-    return CONFIG.channel === 'stable' ? 'atom' : `atom-${CONFIG.channel}`;
+    return CONFIG.channel === 'stable'
+      ? 'pros-editor'
+      : `pros-editor-${CONFIG.channel}`;
   } else {
-    return 'atom';
+    return 'pros-editor';
   }
 }
 

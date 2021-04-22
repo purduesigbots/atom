@@ -11,7 +11,9 @@ const CONFIG = require('../config');
 module.exports = function(packagedAppPath) {
   console.log(`Creating Debian package for "${packagedAppPath}"`);
   const atomExecutableName =
-    CONFIG.channel === 'stable' ? 'atom' : `atom-${CONFIG.channel}`;
+    CONFIG.channel === 'stable'
+      ? 'pros-editor'
+      : `pros-editor-${CONFIG.channel}`;
   const apmExecutableName =
     CONFIG.channel === 'stable' ? 'apm' : `apm-${CONFIG.channel}`;
   const appDescription = CONFIG.appMetadata.description;
@@ -29,7 +31,7 @@ module.exports = function(packagedAppPath) {
 
   const outputDebianPackageFilePath = path.join(
     CONFIG.buildOutputPath,
-    `atom-${arch}.deb`
+    `pros-editor-${arch}.deb`
   );
   const debianPackageDirPath = path.join(
     os.tmpdir(),

@@ -63,6 +63,7 @@ if (global.isGeneratingSnapshot) {
   require('welcome');
   require('whitespace');
   require('wrap-guide');
+  require('pros-bootstrapper');
 }
 
 const clipboard = new Clipboard();

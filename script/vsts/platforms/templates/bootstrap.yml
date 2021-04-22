@@ -4,6 +4,8 @@ steps:
       if ($env:AGENT_OS -eq "Windows_NT") {
         $env:NPM_BIN_PATH="C:/npm/prefix/npm.cmd"
         $env:npm_config_build_from_source=true
+
+        npm config set msvs_version "C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise"
       }
       if ($env:AGENT_OS -eq "Darwin") {
         $env:NPM_BIN_PATH="/usr/local/bin/npm"
